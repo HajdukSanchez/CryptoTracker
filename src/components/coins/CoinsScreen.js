@@ -1,7 +1,19 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Pressable, StyleSheet} from 'react-native';
+// * Libraries
+import Http from '../../libs/http';
 
 const CoinsScreen = ({navigation}) => {
+  const [coins, setCoins] = useState({});
+
+  useEffect(async () => {
+    const data = await Http.instance.get(
+      'https://api.coinlore.net/api/tickers/',
+    );
+    console.log(data);
+    setCoins(data);
+  }, [coins]);
+
   const handlePress = () => {
     navigation.navigate('CoinDetail'); // * The name is the one on the stack
   };
