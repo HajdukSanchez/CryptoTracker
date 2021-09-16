@@ -20,6 +20,10 @@ const CoinsScreen = ({navigation}) => {
     })();
   }, []);
 
+  const handlePress = coin => {
+    navigation.navigate('CoinDetail', {coin});
+  };
+
   return (
     <View style={styles.Container}>
       {loading ? (
@@ -27,7 +31,9 @@ const CoinsScreen = ({navigation}) => {
       ) : (
         <FlatList
           data={coins}
-          renderItem={({item}) => <CoinsItem item={item} />}
+          renderItem={({item}) => (
+            <CoinsItem item={item} onPress={() => handlePress(item)} />
+          )}
         />
       )}
     </View>
