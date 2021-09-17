@@ -4,6 +4,8 @@ import {View, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
 import Http from '../../libs/http';
 // * Components
 import CoinsItem from './CoinsItem';
+// * Styles
+import Colors from '../../res/colors';
 
 const CoinsScreen = ({navigation}) => {
   const [coins, setCoins] = useState([]);
@@ -43,7 +45,7 @@ const CoinsScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: Colors.charade,
   },
   Loader: {
     marginTop: 60,

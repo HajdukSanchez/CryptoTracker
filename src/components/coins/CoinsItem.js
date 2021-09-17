@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 16,
-    borderBottomColor: Colors.zircon,
+    borderBottomColor: Colors.blackPearl,
     borderBottomWidth: 1,
     marginLeft: Platform.OS === 'ios' ? 16 : 0, // ? If we are in IOS we add the margin left
   },
