@@ -1,14 +1,14 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View, Platform, Pressable} from 'react-native';
 // * Styles
-import Colors from '../../res/colors';
+import Colors from '../../../res/colors';
 
 const CoinsItem = ({item, onPress}) => {
   const handleImageArrow = () => {
     if (item.percent_change_1h > 0) {
-      return require('../../assets/arrow_up.png');
+      return require('../../../assets/arrow_up.png');
     } else {
-      return require('../../assets/arrow_down.png');
+      return require('../../../assets/arrow_down.png');
     }
   };
 

@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
 // * Libraries
-import Http from '../../libs/http';
+import Http from '../../../libs/http';
 // * Components
 import CoinsItem from './CoinsItem';
 // * Styles
-import Colors from '../../res/colors';
+import Colors from '../../../res/colors';
 
 const CoinsScreen = ({navigation}) => {
   const [coins, setCoins] = useState([]);

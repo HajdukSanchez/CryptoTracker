@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 // * Components
-import CoinsStack from './src/components/coins/CoinsStack';
+import CoinsStack from './src/components/coinsStack/CoinsStack';
 
 const App = () => {
   return (
