@@ -6,11 +6,13 @@ import {
   StyleSheet,
   SectionList,
   FlatList,
+  Pressable,
 } from 'react-native';
 // * Styles
 import Colors from '../../../res/colors';
 // * Libraries
 import Http from '../../../libs/http';
+import Storage from '../../../libs/storage';
 // * Components
 import CoinMarketItem from './CoinMarketItem';
 
@@ -21,6 +23,8 @@ const CoinDetailScreen = ({
   navigation,
 }) => {
   const [markets, setMarkets] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
+
   useEffect(() => {
     navigation.setOptions({title: coin.symbol}); // * Title of the screen
     handleMarkets(coin.id);
@@ -58,14 +62,40 @@ const CoinDetailScreen = ({
     setMarkets(markets);
   };
 
+  const handleToggleFavorite = () => {
+    isFavorite ? removeFromFavorites() : addToFavorites();
+  };
+
+  const addToFavorites = () => {
+    const key = `favorite-${coin.id}`;
+    const coinToAdd = JSON.stringify(coin);
+    const stored = Storage.instance.store(key, coinToAdd);
+    if (stored) setIsFavorite(true);
+  };
+
+  const removeFromFavorites = () => {};
+
   return (
     <View style={styles.Container}>
       <View style={styles.SubHeader}>
-        <Image
-          style={styles.Icon}
-          source={{uri: handleSymbolIcon(coin.name)}}
-        />
-        <Text style={styles.Title}>{coin.name}</Text>
+        <View style={styles.Row}>
+          <Image
+            style={styles.Icon}
+            source={{uri: handleSymbolIcon(coin.name)}}
+          />
+          <Text style={styles.Title}>{coin.name}</Text>
+        </View>
+        <Pressable
+          style={[
+            styles.ButtonFavorite,
+            isFavorite ? styles.ButtonFavoriteRemove : styles.ButtonFavoriteAdd,
+          ]}
+          onPress={handleToggleFavorite}
+        >
+          <Text style={styles.ButtonFavoriteText}>
+            {isFavorite ? 'Remove Favorite' : 'Add Favorite'}
+          </Text>
+        </Pressable>
       </View>
       <SectionList
         style={styles.SectionList}
@@ -102,6 +132,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.1)',
     padding: 16,
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  Row: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   Icon: {
     width: 25,
@@ -112,6 +148,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     marginLeft: 8,
+  },
+  ButtonFavorite: {
+    padding: 8,
+    borderRadius: 8,
+  },
+  ButtonFavoriteText: {
+    color: Colors.white,
+  },
+  ButtonFavoriteAdd: {
+    backgroundColor: Colors.picton,
+  },
+  ButtonFavoriteRemove: {
+    backgroundColor: Colors.carmine,
   },
   SectionList: {
     maxHeight: 220,
