@@ -7,6 +7,7 @@ import {
   SectionList,
   FlatList,
   Pressable,
+  Alert,
 } from 'react-native';
 // * Styles
 import Colors from '../../../res/colors';
@@ -28,6 +29,7 @@ const CoinDetailScreen = ({
   useEffect(() => {
     navigation.setOptions({title: coin.symbol}); // * Title of the screen
     handleMarkets(coin.id);
+    getFavorite();
   }, [coin.symbol, navigation]);
 
   const handleSymbolIcon = name => {
@@ -66,14 +68,42 @@ const CoinDetailScreen = ({
     isFavorite ? removeFromFavorites() : addToFavorites();
   };
 
-  const addToFavorites = () => {
+  const addToFavorites = async () => {
     const key = `favorite-${coin.id}`;
     const coinToAdd = JSON.stringify(coin);
-    const stored = Storage.instance.store(key, coinToAdd);
+    const stored = await Storage.instance.store(key, coinToAdd);
     if (stored) setIsFavorite(true);
   };
 
-  const removeFromFavorites = () => {};
+  const removeFromFavorites = async () => {
+    // * The alert has three parameters, the title, the messages and the buttons schema
+    Alert.alert('Remove favorite', 'Are you sure ?', [
+      {
+        text: 'cancel',
+        onPress: () => {},
+        style: 'cancel',
+      },
+      {
+        text: 'remove',
+        onPress: async () => {
+          const key = `favorite-${coin.id}`;
+          await Storage.instance.remove(key);
+          setIsFavorite(false);
+        },
+        style: 'destructive',
+      },
+    ]);
+  };
+
+  const getFavorite = async () => {
+    try {
+      const key = `favorite-${coin.id}`;
+      const favoriteString = await Storage.instance.get(key);
+      if (favoriteString != null) setIsFavorite(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <View style={styles.Container}>
