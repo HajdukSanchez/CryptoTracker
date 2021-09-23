@@ -18,7 +18,7 @@ const App = () => {
     <NavigationContainer>
       <Tabs.Navigator
         style={styles.TabNavigator}
-        screenOptions={{headerShown: false}}
+        screenOptions={{headerShown: false, tabBarShowLabel: false}}
       >
         <Tabs.Screen
           name="CurrenciesTab"
@@ -26,7 +26,11 @@ const App = () => {
           options={{
             tabBarIcon: ({size, color}) => (
               <Image
-                style={{tintColor: color, width: size, height: size}}
+                style={{
+                  tintColor: color,
+                  width: size,
+                  height: size,
+                }}
                 source={CoinsIconTab}
               />
             ),
@@ -39,7 +43,11 @@ const App = () => {
           options={{
             tabBarIcon: ({size, color}) => (
               <Image
-                style={{tintColor: color, width: size, height: size}}
+                style={{
+                  tintColor: color,
+                  width: size,
+                  height: size,
+                }}
                 source={FavoritesIconTab}
               />
             ),
