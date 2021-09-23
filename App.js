@@ -21,7 +21,7 @@ const App = () => {
         screenOptions={{headerShown: false}}
       >
         <Tabs.Screen
-          name="Currencies"
+          name="CurrenciesTab"
           component={CoinsStack}
           options={{
             tabBarIcon: ({size, color}) => (
@@ -34,7 +34,7 @@ const App = () => {
         />
 
         <Tabs.Screen
-          name="Favorites"
+          name="FavoritesTab"
           component={FavoritesStack}
           options={{
             tabBarIcon: ({size, color}) => (
